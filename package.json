@@ -11,6 +11,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@maplibre/maplibre-gl-geocoder": "^1.5.0",
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.11",
     "@next/font": "13.1.6",
@@ -26,7 +27,8 @@
     "react-dom": "18.2.0",
     "react-map-gl": "^7.0.21",
     "react-modal-video": "^2.0.0",
-    "react-router-dom": "^6.8.2"
+    "react-router-dom": "^6.8.2",
+    "three": "^0.150.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
