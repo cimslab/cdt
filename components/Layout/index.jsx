@@ -1,7 +1,7 @@
 import Head from 'next/head';
-import Header from '@/components/Header';
-import Sidebar from '@/components/Sidebar';
-import Map from '@/components/Map';
+import Header from '../Header';
+import Sidebar from '../Sidebar';
+import Map from '../Map';
 
 export const siteTitle = 'ICDT';
 
