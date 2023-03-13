@@ -6,7 +6,12 @@ import { Three } from "../../lib/map/three";
 import { Geocoder } from "../../lib/map/geocoder";
 import { useRouter } from "next/router";
 
-import Map, { Source, NavigationControl, GeolocateControl } from "react-map-gl";
+import Map, {
+  Source,
+  NavigationControl,
+  GeolocateControl,
+  ViewStateChangeEvent,
+} from "react-map-gl";
 
 import "maplibre-gl/dist/maplibre-gl.css";
 import maplibregl from "maplibre-gl";
@@ -22,7 +27,7 @@ export default function MapSection() {
 
   // Get shared position
   const router = useRouter();
-  console.log(router.isReady, router.query);
+  // console.log(router.isReady, router.query);
 
   const [viewState, setViewState] = useState({
     zoom: router.query.zoom ? Number(router.query.zoom) : 12,
@@ -31,6 +36,25 @@ export default function MapSection() {
     longitude: router.query.lng ? Number(router.query.lng) : -75.69435,
     latitude: router.query.lat ? Number(router.query.lat) : 45.38435,
   });
+
+  const onMoveChange = (event: ViewStateChangeEvent) => {
+    setViewState(event.viewState);
+    let currentZoom = event.viewState.zoom.toString();
+    let currentBearing = event.viewState.bearing.toString();
+    let currentPitch = event.viewState.pitch.toString();
+    let currentLat = event.viewState.latitude.toString();
+    let currentLng = event.viewState.longitude.toString();
+
+    router.push({
+      query: {
+        zoom: currentZoom,
+        bearing: currentBearing,
+        pitch: currentPitch,
+        lat: currentLat,
+        lng: currentLng,
+      },
+    });
+  };
 
   return (
     <section id="map" className="">
@@ -41,13 +65,13 @@ export default function MapSection() {
               mapLib={maplibregl}
               // {...viewState}
               initialViewState={viewState}
-              // onMove={onMoveChange}
+              onMove={onMoveChange}
               ref={mapRef}
               onLoad={(map) => {
                 if (geocoderControl) {
                   map.target.addControl(geocoderControl);
                 }
-                // if (three) map.target.addLayer(three);
+                if (three) map.target.addLayer(three);
               }}
               maxPitch={60}
               minZoom={3}
