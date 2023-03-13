@@ -1,18 +1,12 @@
 "use client";
 
-import { FC, useRef, useState } from "react";
-// import { useSearchParams } from "react-router-dom";
+import { FC, useRef, useState, useEffect } from "react";
 import { canada } from "../../lib/map/canada";
 import { Three } from "../../lib/map/three";
 import { Geocoder } from "../../lib/map/geocoder";
+import { useRouter } from "next/router";
 
-import Map, {
-  Source,
-  NavigationControl,
-  GeolocateControl,
-  ViewStateChangeEvent,
-  Marker,
-} from "react-map-gl";
+import Map, { Source, NavigationControl, GeolocateControl } from "react-map-gl";
 
 import "maplibre-gl/dist/maplibre-gl.css";
 import maplibregl from "maplibre-gl";
@@ -27,27 +21,16 @@ export default function MapSection() {
   const geocoderControl = Geocoder();
 
   // Get shared position
-  // const currentUrl: string = window.location.href;
-  // const currentUrl = "http://localhost:3000";
-  // const url = new URL(currentUrl);
+  const router = useRouter();
+  console.log(router.isReady, router.query);
 
-  // const [viewState, setViewState] = useState({
-  //   zoom: url.searchParams.get("zoom")
-  //     ? Number(url.searchParams.get("zoom"))
-  //     : 16,
-  //   bearing: url.searchParams.get("bearing")
-  //     ? Number(url.searchParams.get("bearing"))
-  //     : 0,
-  //   pitch: url.searchParams.get("pitch")
-  //     ? Number(url.searchParams.get("pitch"))
-  //     : 85,
-  //   longitude: url.searchParams.get("lng")
-  //     ? Number(url.searchParams.get("lng"))
-  //     : -75.69435,
-  //   latitude: url.searchParams.get("lat")
-  //     ? Number(url.searchParams.get("lat"))
-  //     : 45.38435,
-  // });
+  const [viewState, setViewState] = useState({
+    zoom: router.query.zoom ? Number(router.query.zoom) : 12,
+    bearing: router.query.bearing ? Number(router.query.bearing) : 0,
+    pitch: router.query.pitch ? Number(router.query.pitch) : 45,
+    longitude: router.query.lng ? Number(router.query.lng) : -75.69435,
+    latitude: router.query.lat ? Number(router.query.lat) : 45.38435,
+  });
 
   return (
     <section id="map" className="">
@@ -57,48 +40,29 @@ export default function MapSection() {
             <Map
               mapLib={maplibregl}
               // {...viewState}
-              initialViewState={{
-                latitude: 45.38435,
-                longitude: -75.69435,
-                zoom: 12,
-              }}
+              initialViewState={viewState}
               // onMove={onMoveChange}
               ref={mapRef}
               onLoad={(map) => {
                 if (geocoderControl) {
                   map.target.addControl(geocoderControl);
                 }
-                if (three) map.target.addLayer(three);
+                // if (three) map.target.addLayer(three);
               }}
-              // maxPitch={60}
+              maxPitch={60}
               minZoom={3}
               maxBounds={[
                 [-141.1, 41.5],
                 [-52, 83.4],
               ]}
-              mapStyle={`./assets/map/satellite.json`}
+              mapStyle={`./assets/map/styles/satellite.json`}
               style={{ width: "100vw", height: "100vh" }}
               terrain={{ source: "terrainSource", exaggeration: 0.05 }}
             >
-              {/* <Map
-              initialViewState={{
-                latitude: 45.3768525,
-                longitude: -75.694243,
-                zoom: 12,
-              }}
-              style={{ width: 1024, height: 600 }}
-              mapStyle="mapbox://styles/mapbox/streets-v9"
-              mapboxAccessToken={MAPBOX_TOKEN}
-            > */}
-              {/* <Marker
-                longitude={-75.694243}
-                latitude={45.3768525}
-                color="red"
-              /> */}
               <Source
                 id="terrainSource"
                 type="raster-dem"
-                url="./assets/map/terrain.json"
+                url="./assets/map/terrain/terrain.json"
                 tileSize={256}
               ></Source>
               <NavigationControl position="bottom-left" visualizePitch={true} />
