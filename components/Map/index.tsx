@@ -19,10 +19,6 @@ import maplibregl from "maplibre-gl";
 export default function MapSection() {
   const mapRef: any = useRef();
 
-  const places = canada.provinces.ON.cities.Ottawa.places;
-  // const [three, setThree] = useState(Three(places.Carleton_University));
-  const three = Three(places.Carleton_University);
-
   const geocoderControl = Geocoder();
 
   // Get shared position
@@ -44,9 +40,13 @@ export default function MapSection() {
     let currentPitch = event.viewState.pitch.toString();
     let currentLat = event.viewState.latitude.toString();
     let currentLng = event.viewState.longitude.toString();
+    let currentProvince = router.query.province;
+    let currentCity = router.query.city;
 
     router.push({
       query: {
+        province: currentProvince,
+        city: currentCity,
         zoom: currentZoom,
         bearing: currentBearing,
         pitch: currentPitch,
@@ -55,6 +55,10 @@ export default function MapSection() {
       },
     });
   };
+
+  const [placeLoaded, setPlaceLoaded] = useState(false);
+  const places = canada.provinces.ON.cities.Ottawa.places;
+  const three = Three(places.Carleton_University);
 
   return (
     <section id="map" className="">
@@ -71,7 +75,12 @@ export default function MapSection() {
                 if (geocoderControl) {
                   map.target.addControl(geocoderControl);
                 }
-                if (three) map.target.addLayer(three);
+              }}
+              onWheel={(map) => {
+                if (three && !placeLoaded) {
+                  map.target.addLayer(three);
+                  setPlaceLoaded(true);
+                }
               }}
               maxPitch={60}
               minZoom={3}
