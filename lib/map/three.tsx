@@ -87,25 +87,22 @@ export const Three = (place: any) => {
           for (const id in objects) {
             // const bb = new Box3();
             let gltfPath = `./assets/models/cdc-glb/ON_Ottawa_CDC_${id}_${category}_allFloors.gltf`;
-            gltfLoader.load(gltfPath, (gltf) => {
-              if (category === "walls") {
-                // bb.setFromObject(gltf.scene);
-                // console.log(id);
+            gltfLoader.load(
+              gltfPath,
+              (gltf) => {
+                if (gltf) this.scene.add(gltf.scene);
               }
-
-              this.scene.add(gltf.scene);
-            });
+              // () => {
+              //   // loadingContainer.classList.remove("hidden");
+              //   // progressText.textContent = `Loading ${place.name}'s buildings`;
+              //   // console.log(`Loading ${place.name} buildings`);
+              // }
+            );
           }
         });
         //-----------------------------------------------
-        // const gltfLoader = new GLTFLoader();
-
         // const ifcLoader = new IFCLoader();
         // ifcLoader.ifcManager.setWasmPath("../wasm/");
-
-        // gltfLoader.load("./assets/models/ON-Ottawa-cu-masses.glb", (gltf) => {
-        //   this.scene.add(gltf.scene);
-        // });
         this.map = map;
 
         this.renderer = new WebGLRenderer({

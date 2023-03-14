@@ -22,7 +22,7 @@
       "next-env.d.ts",
       "**/*.ts",
       "**/*.tsx"
-    ],
+, "components/Sidebar/MenuButton/index.jsx", "components/Sidebar/MenuButton/index.jsx"    ],
     "exclude": [
       "node_modules"
     ]
