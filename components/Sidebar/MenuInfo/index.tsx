@@ -11,17 +11,18 @@ export default function MenuInfo() {
           width={40}
           alt="icdt"
         />
-        Canada`&apos`s Digital Twin
+        Canada s Digital Twin
       </h2>
       <Image
         priority
         src="/images/icdt.gif"
-        width={"55"}
+        width={"450"}
+        height={"250"}
         alt="Canada's Digital Twin"
       />
       <h3>Mission</h3>
       <p>
-        Imagining Canada`&apos`s Digital Twin is an <b>exploration</b> of the{" "}
+        Imagining Canada s Digital Twin is an <b>exploration</b> of the{" "}
         <b>idea</b> of a digital twin for Canada. Our goal is not to resolve the
         question of a digital twin for Canada, but to determine its feasibility.
       </p>
@@ -30,7 +31,7 @@ export default function MenuInfo() {
       <p>
         What we are developing is a national, inclusive, and multidisciplinary
         research consortium to begin developing the technical, cultural, and
-        ethical framework for building Canada`&apos`s digital twin.
+        ethical framework for building Canada s digital twin.
       </p>
 
       <h3>Values</h3>

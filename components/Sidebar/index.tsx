@@ -19,17 +19,8 @@ import MenuButton from "../Common/MenuButton";
 import MenuTools from "./MenuTools";
 import MenuLayers from "./MenuLayers";
 import ShareViewWindow from "./ShareViewWindow";
+import MenuUpload from "./MenuUpload";
 import MenuInfo from "./MenuInfo";
-
-// Menus
-// import { RightMenuHeader } from "./right-menu-header";
-// import { RightMenu } from "./right-menu";
-// import { MapStyles } from "./map-styles";
-// import { Layers } from "./layers";
-// import { Auth } from "./auth/auth";
-// import { ToolsMenu } from "./tools-menu";
-// import { Upload } from "./upload";
-// import { InfoMenu } from "./info-menu";
 
 export default function Sidebar() {
   const [isOpen, setOpen] = useState(false);
@@ -74,28 +65,21 @@ export default function Sidebar() {
     <div key={2} id="datasets-container" title={`${city} Layers`}>
       <MenuLayers />
     </div>,
-    // <div key={3} id="upload-forms" title="Uploads">
-    //   <MenuUpload />
-    // </div>,
-    // <div key={4} title="Map Styles">
-    //   <Router>
-    //     <div key={5} id="map-styles-container" title="Map Styles">
-    //       <MapStyles updateMapStyle={updateMapStyle} />
-    //     </div>
-    //   </Router>
-    // </div>,
-    // <div key={6} id="sign-in-container" title="Authentication">
-    //   <Auth />
-    // </div>,
-    // <div key={7} id="info-container" title="Information">
-    //   <InfoMenu />
-    // </div>,
-    // <div
-    //   key={8}
-    //   id="settings-container"
-    //   title="Settings"
-    //   className="right-menu-body"
-    // ></div>,
+    <div key={3} id="upload-forms" title="Uploads">
+      <MenuUpload />
+    </div>,
+    <div key={4} id="sign-in-container" title="Authentication">
+      {/* <Auth /> */}
+    </div>,
+    <div key={5} id="info-container" title="Information">
+      <MenuInfo />
+    </div>,
+    <div
+      key={6}
+      id="settings-container"
+      title="Settings"
+      className="right-menu-body"
+    ></div>,
   ];
 
   const currentMenuElement = rightMenu[menuIndex];
@@ -147,37 +131,31 @@ export default function Sidebar() {
             handleClick={menuButtonClick}
             index={3}
           />
-          {/* <MenuButton
-            title={"Map Styles"}
-            Icon={<MapStylesIcon />}
-            handleClick={menuButtonClick}
-            index={4}
-          /> */}
           <MenuButton
             title={"Log in"}
             Icon={<LoginIcon />}
             handleClick={menuButtonClick}
-            index={5}
+            index={4}
           />
           <MenuButton
             title={"Info"}
             Icon={<InfoIcon />}
             handleClick={menuButtonClick}
-            index={6}
+            index={5}
           />
           <MenuButton
             title={"Settings"}
             Icon={<SettingsIcon />}
             handleClick={menuButtonClick}
-            index={7}
+            index={6}
           />
         </nav>
       </aside>
       <div className="full-page-flex">
-        {/* <ShareViewWindow
+        <ShareViewWindow
           handleClick={haredViewClick}
           toggled={shareViewMenuOpen}
-        /> */}
+        />
       </div>
     </div>
   );
